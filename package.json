@@ -1,0 +1,27 @@
+{
+  "name": "maya-persistent-storage",
+  "version": "1.0.0",
+  "description": "Module to store key-value pairs in filesystem",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+.git"
+  },
+  "author": "dush-t",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayahq/mayadev/issues"
+  },
+  "homepage": "#readme",
+  "dependencies": {
+    "@mayahq/module-sdk": "^0.3.0"
+  },
+  "nodepath": "src/nodes",
+  "nodeRedModuleName": "maya-persistent-storage",
+  "node-red": {
+    "nodes": {
+      "maya-storage": "src/nodes/mayaStorage/mayaStorage.node.js"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+<script type='text/javascript'>
+    RED.nodes.registerType("maya-storage", {
+        category: "Maya Persistent Storage",
+        color: "#CC94FF",
+        defaults: {
+            name: {
+                value: ""
+            },
+            isProfileConfigNode: {
+                value: false
+            },
+            level: {
+                value: "Node"
+            },
+            operation: {
+                value: ""
+            },
+            payloadTypeoperation: {
+                value: "str"
+            },
+            query: {
+                value: ""
+            },
+            payloadTypequery: {
+                value: "json"
+            },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "db.svg",
+        label: function() {
+            return this.name || "maya-storage"
+        },
+        paletteLabel: "maya-storage",
+        exportable: true,
+        oneditprepare: function() {
+            const levelselectFieldValues = ["Node", "Runtime", "Global"]
+            levelselectFieldValues.forEach((val) => {
+                $("#node-input-level").append($("<option></option>").attr("value", val).text(val))
+            })
+            $("#node-input-level").val(this.level)
+
+            if (this.payloadTypeoperation === null) {
+                if (this.operation === "") {
+                    this.payloadTypeoperation = "date"
+                } else {
+                    this.payloadTypeoperation = "str"
+                }
+            } else if (this.payloadTypeoperation === 'string' || this.payloadTypeoperation === 'none') {
+                this.payloadTypeoperation = "str"
+            }
+
+            $("#node-input-payloadTypeoperation").val(this.payloadTypeoperation)
+            $("#node-input-operation").typedInput({
+                default: "str",
+                typeField: $("#node-input-payloadTypeoperation"),
+                types: ["msg", "flow", "global", "str"]
+            })
+            $("#node-input-operation").typedInput("type", this.payloadTypeoperation)
+
+            if (this.payloadTypequery === null) {
+                if (this.query === "") {
+                    this.payloadTypequery = "date"
+                } else {
+                    this.payloadTypequery = "json"
+                }
+            } else if (this.payloadTypequery === 'string' || this.payloadTypequery === 'none') {
+                this.payloadTypequery = "json"
+            }
+
+            $("#node-input-payloadTypequery").val(this.payloadTypequery)
+            $("#node-input-query").typedInput({
+                default: "json",
+                typeField: $("#node-input-payloadTypequery"),
+                types: ["msg", "flow", "global", "json"]
+            })
+            $("#node-input-query").typedInput("type", this.payloadTypequery)
+
+        },
+        oneditsave: function() {},
+        oneditcancel: function() {},
+        oneditdelete: function() {},
+        oneditresize: function() {},
+        onpaletteadd: function() {},
+        onpaletteremove: function() {}
+    });
+</script>
+
+<script type="text/html" data-template-name="maya-storage">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-level">level</label>
+        <select type="text" id="node-input-level">
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-operation">operation (GET or SET)</label>
+        <input type="text" id="node-input-operation"></input>
+        <input type="hidden" id="node-input-payloadTypeoperation">
+    </div>
+    <div class="form-row">
+        <label for="node-input-query">query</label>
+        <input type="text" id="node-input-query"></input>
+        <input type="hidden" id="node-input-payloadTypequery">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="maya-storage">
+    <h2>Description</h2>
+    <p>Query opens tabs based on criteria like URL, muted status</p>
+
+    <h2>Config</h2>
+    <dl class="message-properties">
+
+        <dt>payload<span class="property-type">various</span></dt>
+        <dd>The configured payload of the message.</dd>
+
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>An optional property</dd>
+
+    </dl>
+
+
+    <h2>Outputs</h2>
+    <dl class="message-properties">
+
+        <dt>payload<span class="property-type">various</span></dt>
+        <dd>The configured payload of the message.</dd>
+
+        <dt class="optional">topic <span class="property-type">string</span></dt>
+        <dd>An optional property</dd>
+
+    </dl>
+</script>
