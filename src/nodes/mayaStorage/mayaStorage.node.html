@@ -110,40 +110,48 @@
 
 <script type="text/html" data-help-name="maya-storage">
     <h2 data-type="description-title">Description</h2>
-    <p data-type="description-summary">Query opens tabs based on criteria like URL, muted status</p>
+    <p data-type="description-summary">Access storage that persists through Workspace restarts, and can be shared by multiple nodes</p>
 
     <h2>Config</h2>
     <dl class="message-properties">
 
         <dt>
-            <span class="property-name">payload</span>
-            <span class="property-type">various</span>
+            <span class="property-name">level</span>
+            <span class="property-type">enum</span>
         </dt>
-        <dd>The configured payload of the message.</dd>
+        <dd>
+            The level of isolation you want. If set to "Node", only this current node will be able to access the storage. If
+            set to "Runtime" any other maya-storage node within this Workspace will be able to access and modify this storage.
+            If set to "Global" any node from any Workspace will be able to access and modify this storage.
+        </dd>
 
-        <dt class="optional">
-            <span class="property-name">topic</span>
+        <dt>
+            <span class="property-name">operation</span>
             <span class="property-type">string</span>
         </dt>
-        <dd>An optional property</dd>
+        <dd>
+            Value can be either "SET" or "GET". If value is "SET", the query will be used to modify values in the storage. If
+            value is "GET", the query will be used to fetch values from the storage.
+        </dd>
 
+        <dt>
+            <span class="property-name">query</span>
+            <span class="property-type">json</span>
+        </dt>
+        <dd>
+            The maya-db query to set or fetch info from the storage.
+        </dd>
     </dl>
 
 
     <h2>Outputs</h2>
     <dl class="message-properties">
 
-        <dt>
-            <span class="property-name">payload</span>
-            <span class="property-type">various</span>
-        </dt>
-        <dd>The configured payload of the message.</dd>
-
         <dt class="optional">
-            <span class="property-name">topic</span>
-            <span class="property-type">string</span>
+            <span class="property-name">storageResult</span>
+            <span class="property-type">json</span>
         </dt>
-        <dd>An optional property</dd>
+        <dd>Is only set if the "operation" property is set to "GET", in which case it contains the result of the query.</dd>
 
     </dl>
 </script>
