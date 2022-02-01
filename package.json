@@ -23,5 +23,21 @@
     "nodes": {
       "maya-storage": "src/nodes/mayaStorage/mayaStorage.node.js"
     }
+  },
+  "mayaDetails": {
+    "name": "Maya Persistent Storage",
+    "version": "1.0.0",
+    "description": "Module for hooking into Maya's persistent brain storage API",
+    "author": "dush-t",
+    "type": "git",
+    "needsUserProfile": false,
+    "thumbnail": "",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/mayahq/maya-persistent-storage.git"
+    },
+    "origin": {
+      "moduleId": "618e6a1f9caba6e380643308"
+    }
   }
 }
